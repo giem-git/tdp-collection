@@ -1,15 +1,19 @@
 name: Ansible Lint
 on:
   push
+env:
+  NAMESPACE: tosit
+  COLLECTION_NAME: tdp
+  ANSIBLE_COLLECTION_PATH: ${{ github.workspace }}
 jobs:
   ansible-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          dev/setup.sh
-          source venv/bin/activate
-          git branch --show-current
-          ls -l plugins/modules
-          ls -l plugins/action
-          ansible-lint
+        with:
+          path: ansible_collections/${{env.NAMESPACE}}/${{env.COLLECTION_NAME}}
+      - run: dev/setup.sh
+        working-directory: ./ansible_collections/${{env.NAMESPACE}}/${{env.COLLECTION_NAME}}
+      - name: Run ansible-lint
+        run: source venv/bin/activate && ansible-lint
+        working-directory: ./ansible_collections/${{env.NAMESPACE}}/${{env.COLLECTION_NAME}}
