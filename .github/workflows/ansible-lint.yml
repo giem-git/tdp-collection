@@ -4,7 +4,7 @@ on:
 env:
   NAMESPACE: tosit
   COLLECTION_NAME: tdp
-  ANSIBLE_COLLECTION_PATH: ${{ github.workspace }}
+  ANSIBLE_COLLECTIONS_PATH: ${{ github.workspace }}
 jobs:
   ansible-lint:
     runs-on: ubuntu-latest
