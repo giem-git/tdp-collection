@@ -9,4 +9,6 @@ jobs:
       - run: |
           dev/setup.sh
           source venv/bin/activate
+          git branch --show-current
+          ls -l
           ansible-lint
